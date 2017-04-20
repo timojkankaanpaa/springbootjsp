@@ -4,7 +4,7 @@
     <artifactId>hello-springboot</artifactId>
     <name>hello-springboot</name>
     <description>hello-springboot</description>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
