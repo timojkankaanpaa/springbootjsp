@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Boot Hello World Example with JSP</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script>
+function calculatePosition(){
+	var locations ="<MyLocations> <item>    <x>21.553115844726562</x>    <y>63.089553465232996</y>  </item>  <item>    <x>21.64958953857422</x>    <y>63.109203272591294</y>  </item></MyLocations>";
+	var parser = new DOMParser();
+	xmlDoc = parser.parseFromString(locations,"text/xml");
+	console.log($("#powerplantx").val());
+	xmlDoc.getElementsByTagName("x")[0].childNodes[0].nodeValue=$("#powerplantx").val();
+	xmlDoc.getElementsByTagName("x")[1].childNodes[0].nodeValue=$("#consumerx").val();
+	xmlDoc.getElementsByTagName("y")[0].childNodes[0].nodeValue=$("#powerplanty").val();
+	xmlDoc.getElementsByTagName("y")[1].childNodes[0].nodeValue=$("#consumery").val();
+	console.log(xmlDoc.getElementsByTagName("x")[0].childNodes[0].nodeValue);
+	
+	var oSerializer = new XMLSerializer(); 
+	var xmlDocTxt = oSerializer.serializeToString(xmlDoc);
+	console.log("xmlDocTxt:" +xmlDocTxt);
+	$.ajax({
+	    url: "calculateAndReturnAllTree",
+	    data: xmlDocTxt, 
+	    type: 'POST',
+	    contentType: "text/xml",
+	    dataType: "text",
+	    success: function (res) {
+	    	$("#div1").html(res);
+	    },
+	    error : function (xhr, ajaxOptions, thrownError){  
+	        console.log(xhr.status);          
+	        console.log(thrownError);
+	    } 
+	});
+}
+</script>
+</head>
+<body onLoad="calculatePosition()"">
+    <h2>This is an page to test the calculation of substation position</h2>
+    PowerPlant: X<input type="text" id="powerplantx" value="21.553115844726562">
+    Y<input type="text" id="powerplanty" value="63.089553465232996"><br>
+    Consumer..: X<input type="text" id="consumerx" value="21.64958953857422">
+    Y<input type="text" id="consumery" value="63.109203272591294">
+    <input type=button onClick="calculatePosition()" value="Recalculate">
+    
+    <div id="div1"></div>
+</body>
+</html>
