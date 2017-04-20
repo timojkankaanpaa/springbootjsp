@@ -1,4 +1,4 @@
-package vsg.model;
+package vsg;
 
 public class MyLocation{
 	private double x;

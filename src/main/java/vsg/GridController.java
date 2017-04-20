@@ -1,4 +1,4 @@
-package vsg.view;
+package vsg;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import vsg.model.LocationFactory;
-import vsg.model.MyLocation;
 
 @RestController
 public class GridController {
@@ -26,7 +23,7 @@ public class GridController {
     	l.setY(63.089553465232996);
         return l;
     }
-
+//Accept: application/xml×
     @RequestMapping(value = "/locations", method = RequestMethod.GET,produces={"application/json","application/xml"})
     public MyLocation[] showLocations(@RequestParam(value="name", required=false, defaultValue="World") String name) {
     	MyLocation l = new MyLocation();
